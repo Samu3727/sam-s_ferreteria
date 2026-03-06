@@ -9,3 +9,13 @@ def listar_productos():
     rows = cursor.fetchall()
     conn.close()
     return rows
+
+def agregar_producto(producto: Producto):
+    
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO productos (nombre, precio, stock) VALUES (?, ?, ?)",
+                   (producto.nombre, producto.precio, producto.stock))
+    
+    conn.commit()
+    conn.close()
