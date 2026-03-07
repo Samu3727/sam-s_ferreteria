@@ -14,8 +14,8 @@ def agregar_producto(producto: Producto):
     
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO productos (nombre, precio, stock) VALUES (?, ?, ?)",
-                   (producto.nombre, producto.precio, producto.stock))
+    cursor.execute("INSERT INTO productos (nombre, precio, stock) VALUES (%s,%s, %s)",
+                (producto.nombre, producto.precio, producto.stock))
     
     conn.commit()
     conn.close()
