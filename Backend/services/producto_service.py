@@ -38,12 +38,43 @@ def eliminar_producto(nombre: str, precio: float, stock: int):
     return filas_afectadas
 
 
-def actualizar_producto(nombre: str, nuevo_nombre: str,  nuevo_precio: float, nuevo_stock: int):
-    
+def actualizar_producto(nombre: str, *args):
+    """
+    Compatible con dos firmas:
+    - actualizar_producto(nombre, nuevo_nombre, nuevo_precio, nuevo_stock)
+    - actualizar_producto(nombre, precio, stock, nuevo_nombre, nuevo_precio, nuevo_stock)
+    """
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("UPDATE productos SET nombre = %s, precio = %s, stock = %s WHERE nombre = %s AND estado = 1 LIMIT 1", (nuevo_nombre, nuevo_precio, nuevo_stock, nombre))
-    
+
+    if len(args) == 3:
+        nuevo_nombre, nuevo_precio, nuevo_stock = args
+        cursor.execute(
+            """
+            UPDATE productos
+            SET nombre = %s, precio = %s, stock = %s
+            WHERE nombre = %s AND estado = 1
+            LIMIT 1
+            """,
+            (nuevo_nombre, nuevo_precio, nuevo_stock, nombre),
+        )
+    elif len(args) == 5:
+        precio, stock, nuevo_nombre, nuevo_precio, nuevo_stock = args
+        cursor.execute(
+            """
+            UPDATE productos
+            SET nombre = %s, precio = %s, stock = %s
+            WHERE nombre = %s AND precio = %s AND stock = %s AND estado = 1
+            LIMIT 1
+            """,
+            (nuevo_nombre, nuevo_precio, nuevo_stock, nombre, precio, stock),
+        )
+    else:
+        conn.close()
+        raise TypeError(
+            "actualizar_producto admite 4 o 6 argumentos en total."
+        )
+
     conn.commit()
     filas_afectadas = cursor.rowcount
     conn.close()

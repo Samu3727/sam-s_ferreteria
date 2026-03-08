@@ -1,16 +1,16 @@
 import streamlit as st
-import pandas as pd
-from Backend.services.producto_service import listar_productos, agregar_producto, eliminar_producto
+from Backend.services import producto_service
 from Backend.models.producto import Producto
 
 def inventory_table():
+    if "producto_en_edicion" not in st.session_state:
+        st.session_state.producto_en_edicion = None
     
     st.subheader("📦 Inventario de Productos")
     
-    productos = listar_productos()
+    productos = producto_service.listar_productos()
     
     if productos:
-        # Convertir los datos a DataFrame
         col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 2])
         
         with col1: st.markdown("**Nombre**")
@@ -31,13 +31,70 @@ def inventory_table():
                 
                 if st.button("Eliminar🗑️", key=f"eliminar_{idx}"):
                     
-                    filas = eliminar_producto(nombre, precio, stock)
+                    filas = producto_service.eliminar_producto(nombre, float(precio), int(stock))
                     
                     if filas > 0:
                         
-                        st.success("Producto '{nombre}' eliminado exitosamente")
+                        st.success(f"Producto '{nombre}' eliminado exitosamente.✅")
                         st.rerun()
-    
+                        
+            with col5:
+                
+                if st.button("Actualizar✏️", key=f"actualizar_{idx}"):
+                    st.session_state.producto_en_edicion = {
+                        "nombre": nombre,
+                        "precio": float(precio),
+                        "stock": int(stock),
+                    }
+
+        if st.session_state.producto_en_edicion:
+            st.divider()
+            st.subheader("Editar Producto")
+
+            producto = st.session_state.producto_en_edicion
+
+            with st.form("form_actualizar_producto"):
+                nuevo_nombre = st.text_input("Nombre:", value=producto["nombre"])
+                nuevo_precio = st.number_input(
+                    "Precio:",
+                    value=float(producto["precio"]),
+                    min_value=0.0,
+                    step=1.0,
+                )
+                nuevo_stock = st.number_input(
+                    "Stock:",
+                    value=int(producto["stock"]),
+                    min_value=0,
+                    step=1,
+                )
+
+                guardar = st.form_submit_button("Guardar Cambios")
+                cancelar = st.form_submit_button("Cancelar")
+
+                if guardar:
+                    if not nuevo_nombre.strip():
+                        st.warning("El nombre no puede estar vacio. ⚠️")
+                    else:
+                        filas = producto_service.actualizar_producto(
+                            producto["nombre"],
+                            float(producto["precio"]),
+                            int(producto["stock"]),
+                            nuevo_nombre.strip(),
+                            float(nuevo_precio),
+                            int(nuevo_stock),
+                        )
+
+                        if filas > 0:
+                            st.success(f"Producto '{producto['nombre']}' actualizado exitosamente.✅")
+                            st.session_state.producto_en_edicion = None
+                            st.rerun()
+                        else:
+                            st.warning("No se pudo actualizar el producto.⚠️")
+
+                if cancelar:
+                    st.session_state.producto_en_edicion = None
+                    st.rerun()
+                        
     st.divider()
     producto_nuevo()
         
@@ -70,7 +127,7 @@ def producto_nuevo():
             
             try:
                 producto = Producto(nombre=nombre.strip(), precio=precio, stock=stock)
-                agregar_producto(producto)
+                producto_service.agregar_producto(producto)
                 st.success(f"✅ Producto '{nombre}' agregado correctamente.")
                 st.session_state.procesando = False
                 st.session_state.form_counter += 1  # Cambia el key del form
