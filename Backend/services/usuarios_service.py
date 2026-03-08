@@ -9,3 +9,14 @@ def listar_usuarios():
     rows = cursor.fetchall()
     conn.close()
     return rows
+
+
+def agregar_usuario():
+    
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO usuarios (nombre, correo, contrasena) VALUES (%s, %s, %s)",
+                    (Usuario.nombre, Usuario.correo, Usuario.contrasena))
+    
+    conn.commit()
+    conn.close()
