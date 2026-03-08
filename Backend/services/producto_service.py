@@ -21,7 +21,6 @@ def agregar_producto(producto: Producto):
     conn.close()
     
 def eliminar_producto(nombre: str, precio: float, stock: int):
-    
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute(
@@ -37,3 +36,4 @@ def eliminar_producto(nombre: str, precio: float, stock: int):
     filas_afectadas = cursor.rowcount
     conn.close()
     return filas_afectadas
+
