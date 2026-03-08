@@ -24,3 +24,8 @@ def eliminar_producto():
     
     conn = get_connection()
     cursor = conn.cursor()
+    cursor.execute("UPDATE productos SET estado = 0 WHERE estado = 1")
+    conn.commit()
+    filas_afectadas = cursor.rowcount
+    conn.close()
+    return filas_afectadas
