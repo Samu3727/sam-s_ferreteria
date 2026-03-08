@@ -5,7 +5,7 @@ def listar_productos():
     
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT nombre, precio, stock FROM productos")
+    cursor.execute("SELECT nombre, precio, stock FROM productos WHERE estado = 1")
     rows = cursor.fetchall()
     conn.close()
     return rows
@@ -19,3 +19,8 @@ def agregar_producto(producto: Producto):
     
     conn.commit()
     conn.close()
+    
+def eliminar_producto():
+    
+    conn = get_connection()
+    cursor = conn.cursor()
