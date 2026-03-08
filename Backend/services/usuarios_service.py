@@ -32,3 +32,15 @@ def eliminar_usuario(nombre: str, correo: str, contrasena: str):
     filas_afectadas = cursor.rowcount
     conn.close()
     return filas_afectadas
+
+
+def actualizar_usuario(nombre: str, nuevo_nombre: str, nuevo_correo: str, nuevo_contrasena: str):
+    
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE usuarios SET nombre = %s, correo = %s, contrasena = %s WHERE nombre = % AND estado = 1 LIMIT 1", (nuevo_nombre, nuevo_correo, nuevo_contrasena, nombre))
+    
+    conn.commit()
+    filas_afectadas = cursor.rowcount
+    conn.close()
+    return filas_afectadas
