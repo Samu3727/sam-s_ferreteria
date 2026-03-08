@@ -20,11 +20,19 @@ def agregar_producto(producto: Producto):
     conn.commit()
     conn.close()
     
-def eliminar_producto():
+def eliminar_producto(nombre: str, precio: float, stock: int):
     
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("UPDATE productos SET estado = 0 WHERE estado = 1")
+    cursor.execute(
+        """
+        UPDATE productos
+        SET estado = 0
+        WHERE nombre = %s AND precio = %s AND stock = %s AND estado = 1
+        LIMIT 1
+        """,
+        (nombre, precio, stock)
+    )
     conn.commit()
     filas_afectadas = cursor.rowcount
     conn.close()

@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from Backend.services.producto_service import listar_productos, agregar_producto
+from Backend.services.producto_service import listar_productos, agregar_producto, eliminar_producto
 from Backend.models.producto import Producto
 
 def inventory_table():
@@ -11,16 +11,32 @@ def inventory_table():
     
     if productos:
         # Convertir los datos a DataFrame
-        df = pd.DataFrame(productos, columns=["Nombre", "Precio", "Stock"])
+        col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 2])
         
-        # Mostrar tabla interactiva
-        st.dataframe(
-            df,
-            use_container_width=True,
-            hide_index=True
-        )
-    else:
-        st.info("No hay productos en el inventario.")
+        with col1: st.markdown("**Nombre**")
+        with col2: st.markdown("**Precio**")
+        with col3: st.markdown("**Stock**")
+        with col4: st.markdown("**Eliminar**")
+        with col5: st.markdown("**Actualizar**")    
+        
+        for idx, (nombre, precio, stock) in enumerate(productos):
+            
+            col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 2])
+            
+            with col1: st.write(nombre)
+            with col2: st.write(precio)
+            with col3: st.write(stock)
+            
+            with col4:
+                
+                if st.button("Eliminar🗑️", key=f"eliminar_{idx}"):
+                    
+                    filas = eliminar_producto(nombre, precio, stock)
+                    
+                    if filas > 0:
+                        
+                        st.success("Producto '{nombre}' eliminado exitosamente")
+                        st.rerun()
     
     st.divider()
     producto_nuevo()
