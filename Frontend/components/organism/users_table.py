@@ -92,4 +92,55 @@ def users_table():
                         )
                         
                         
-                        
+                        if filas > 0:
+                            
+                            st.success(f"Usuario '{usuario['nombre']}' actualizado exitosamente.✅")
+                            st.session_state.usuario_en_edicion = None
+                            st.rerun()
+                            
+                        else:
+                            
+                            st.warning("No se pudo actualizar el producto. ⚠️")
+                            
+                            
+                if cancelar:
+                    
+                    st.session_state.usuario_en_edicion = None
+                    st.rerun()
+                    
+                    
+    st.divider()
+    usuario_nuevo()
+    
+    
+def usuario_nuevo():
+    
+    st.header("Agregar Usuario.")
+    
+    if "procesando" not in st.session_state:
+        
+        st.session_state.procesando = False
+        
+    if "form_counter" not in st.session_state:
+        
+        st.session_state.form_counter = 0
+        
+    with st.form(f"form_agregar_usuario_{st.session_state.form_counter}"):
+        
+        nombre = st.text_input("Nombre:", placeholder="Nombre del Usuario")
+        correo = st.text_input("Correo:", placeholder="pepito123@example.com")
+        contrasena = st.text_input("Contraseña", placeholder="*********")
+        
+        enviado = st.form_submit_button("Agregar Usuario", disabled=st.session_state.procesando)
+        
+        if enviado:
+            
+            st.session_state.procesando = True
+            if not nombre.strip():
+                
+                st.session_state.procesando = False
+                st.warning("El campo de nombre es obligatorio. ⚠️")
+                return
+            
+            
+            
