@@ -22,3 +22,33 @@ def users_table():
         with col3: st.markdown("**Contraseña**")
         with col4: st.markdown("**Eliminar**")
         with col5: st.markdown("**Actualizar**")
+        
+        for idx, (nombre, correo, contrasena) in enumerate(usuarios):
+            
+            col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 2])
+            
+            with col1: st.write(nombre)
+            with col2: st.write(correo)
+            with col3: st.write(contrasena)
+            
+            
+            with col4:
+                
+                if st.button("Eliminar🗑️", key=f"eliminar_{idx}"):
+                    
+                    filas = usuarios_service.eliminar_usuario(nombre, correo, contrasena)
+                    
+                    if filas > 0:
+                        
+                        st.success(f"Usuario '{nombre}' eliminado exitosamente.✅")
+                        st.rerun()
+                        
+                        
+            with col5:
+                
+                if st.button("Actualizar✏️", key=f"actualizar_{idx}"):
+                    st.session_state.producto_en_edicion = {
+                        "nombre": nombre,
+                        "correo": correo,
+                        "contrasena": contrasena,
+                    }
