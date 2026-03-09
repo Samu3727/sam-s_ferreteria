@@ -7,6 +7,7 @@ sys.path.insert(0, str(root_dir))
 
 import streamlit as st
 from components.templates.inventory_page import inventory_page
+from components.templates.users_page import users_page
 
 st.set_page_config(page_title="Ferretería App", layout="wide")
 
@@ -25,5 +26,4 @@ elif menu == "Reportes":
     st.write("Reportes en construcción...")
     
 elif menu == "Usuarios":
-    st.title("Usuarios")
-    st.write("Página de Usuarios en construcción...")
+    users_page()
