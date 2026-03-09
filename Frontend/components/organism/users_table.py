@@ -71,3 +71,25 @@ def users_table():
                 
                 guardar = st.form_submit_button("Guardar Cambios")
                 cancelar = st.form_submit_button("Cancelar")
+                
+                
+                if guardar:
+                    
+                    if not nuevo_nombre.strip():
+                        
+                        st.warning("El nombre no puede estar vacio. ⚠️")
+                        
+                    else:
+                        
+                        filas = usuarios_service.actualizar_usuario(
+                            
+                            usuario["nombre"],
+                            usuario["correo"],
+                            usuario["contrasena"],
+                            nuevo_nombre.strip(),
+                            nuevo_correo,
+                            nuevo_contrasena,
+                        )
+                        
+                        
+                        
