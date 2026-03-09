@@ -143,4 +143,17 @@ def usuario_nuevo():
                 return
             
             
-            
+            try:
+                
+                usuario = Usuario(nombre=nombre.strip(), correo=correo, contrasena=contrasena)
+                usuarios_service.agregar_usuario(usuario)
+                st.success(f"Usuario '{nombre}' agregado exitosamente. ✅")
+                st.session_state.procesando = False
+                st.session_state.form_counter += 1
+                st.rerun()
+                
+            except Exception as e:
+                
+                st.session_state.procesando = False
+                st.error(f"Error al agregar usuario: {e}")
+                st.session_state.procesando = False
