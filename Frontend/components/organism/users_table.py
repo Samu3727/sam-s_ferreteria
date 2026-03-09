@@ -52,3 +52,22 @@ def users_table():
                         "correo": correo,
                         "contrasena": contrasena,
                     }
+                    
+                    
+                    
+        if st.session_state.usuario_en_edicion:
+            
+            st.divider()
+            st.subheader("Editar Usuario")
+            
+            
+            usuario = st.session_state.usuario_en_edicion
+            
+            with st.form("form_actualizar_usuario"):
+                
+                nuevo_nombre = st.text_input("Nombre:", value=usuario["nombre"])
+                nuevo_correo = st.text_input("Correo:", value=usuario["correo"])
+                nuevo_contrasena = st.text_input("Contraseña:", value=usuario["contrasena"])
+                
+                guardar = st.form_submit_button("Guardar Cambios")
+                cancelar = st.form_submit_button("Cancelar")
