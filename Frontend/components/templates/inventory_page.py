@@ -3,5 +3,5 @@ from components.organism.inventory_table import inventory_table
 
 def inventory_page():
     
-    st.title("Inventario de Sam's Ferreteria")
+    st.title("📦 Inventario.")
     inventory_table()

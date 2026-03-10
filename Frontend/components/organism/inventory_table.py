@@ -6,7 +6,7 @@ def inventory_table():
     if "producto_en_edicion" not in st.session_state:
         st.session_state.producto_en_edicion = None
     
-    st.subheader("📦 Inventario de Productos")
+    st.subheader("Tabla:")
     
     productos = producto_service.listar_productos()
     

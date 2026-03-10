@@ -12,10 +12,14 @@ from components.templates.users_page import users_page
 st.set_page_config(page_title="Ferretería App", layout="wide")
 
 st.sidebar.title("Menú")
-menu = st.sidebar.radio("Navegación", ["Inventario", "Ventas", "Reportes", "Usuarios"])
+menu = st.sidebar.radio("Navegación", ["Inventario", "Proveedores", "Usuarios", "Ventas", "Reportes"])
 
 if menu == "Inventario":
     inventory_page()
+    
+elif menu == "Proveedores":
+    st.title("Proveedores")
+    st.write("Página de Proveedores en construcción...")
 
 elif menu == "Ventas":
     st.title("Registrar Venta")

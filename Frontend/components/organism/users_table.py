@@ -9,7 +9,7 @@ def users_table():
         st.session_state.usuario_en_edicion = None
         
         
-    st.subheader("👥 Nuestro Usuarios.")
+    st.subheader("Tabla:")
     
     usuarios = usuarios_service.listar_usuarios()
     
