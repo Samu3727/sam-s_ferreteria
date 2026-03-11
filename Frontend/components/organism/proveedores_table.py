@@ -114,3 +114,19 @@ def proveedores_table():
                     
                     st.session_state.proveedor_en_edicion = None
                     st.rerun()
+                    
+    st.divider()
+    proveedor_nuevo()
+    
+    
+def proveedor_nuevo():
+    
+    st.header("Agregar Proveedor.")
+    
+    if "procesando" not in st.session_state:
+        
+        st.session_state.procesando = False
+        
+    if "form_counter" not in st.session_state:
+        
+        st.session_state.form_counter = 0
