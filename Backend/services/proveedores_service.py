@@ -9,3 +9,13 @@ def listar_proveedores():
     rows = cursor.fetchall()
     conn.close()
     return rows
+
+def agregar_proveedor(proveedor: Proveedor):
+    
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO proveedores (nombre, correo, persona, celular) VALUES (%s, %s, %s, %s)",
+                    (proveedor.nombre, proveedor.correo, proveedor.persona, proveedor.celular))
+    
+    conn.commit()
+    conn.close()
