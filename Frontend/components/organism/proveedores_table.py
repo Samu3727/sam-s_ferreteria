@@ -8,6 +8,12 @@ def proveedores_table():
         
         st.session_state.proveedor_en_edicion = None
         
+    elif (
+        st.session_state.proveedor_en_edicion is not None
+        and "persona" not in st.session_state.proveedor_en_edicion
+    ):
+        st.session_state.proveedor_en_edicion = None
+        
         
     st.subheader("Tabla:")
     
