@@ -7,3 +7,22 @@ def proveedores_table():
     if "proveedor_en_edicion" not in st.session_state:
         
         st.session_state.proveedor_en_edicion = None
+        
+        
+    st.subheader("Tabla:")
+    
+    proveedores = proveedores_service.listar_proveedores()
+    
+    if proveedores:
+        
+        col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2])
+        
+        
+        with col1: st.markdown("**Nombre**")
+        with col2: st.markdown("**Correo**")
+        with col3: st.markdown("**Persona**")
+        with col4: st.markdown("**Celular**")
+        with col5: st.markdown("Eliminar**")
+        with col6: st.markdown("**Actualizar**")
+        
+        
