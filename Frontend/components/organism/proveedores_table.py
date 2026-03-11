@@ -130,3 +130,15 @@ def proveedor_nuevo():
     if "form_counter" not in st.session_state:
         
         st.session_state.form_counter = 0
+        
+        
+    with st.form(f"form_agregar_proveedor_{st.session_state.form_counter}"):
+        
+        nombre = st.text_input("Nombre:", placeholder="Nombre Proveedor")
+        correo = st.text_input("Correo:", placeholder="distribuidora@example.com")
+        persona = st.text_input("Pesona de Contacto:", placeholder="Miguel Perez")
+        celular = st.text_input("Telefono de Contacto:", placeholder="30*-***-****")
+        
+        enviado = st.form_submit_button("Agreagar Proveedor", disabled=st.session_state.procesando)
+        
+        
