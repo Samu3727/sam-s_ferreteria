@@ -1,6 +1,6 @@
 import streamlit as st
 from Backend.services import producto_service
-from Frontend.components.molecules.agregarProducto import producto_nuevo
+from components.molecules.agregarProducto import producto_nuevo
 
 def inventory_table():
     if "producto_en_edicion" not in st.session_state:
@@ -8,7 +8,16 @@ def inventory_table():
     
     st.subheader("Tabla:")
     
-    st.button("Agregar Producto")
+    if "mostrar_agregar" not in st.session_state:
+        
+        st.session_state.mostrar_agregar = False
+    
+    if st.button("Agregar Producto"):
+        
+        st.session_state.mostrar_agregar = True
+        
+    if st.session_state.mostrar_agregar:
+        producto_nuevo()
     
     productos = producto_service.listar_productos()
     
