@@ -141,4 +141,12 @@ def proveedor_nuevo():
         
         enviado = st.form_submit_button("Agreagar Proveedor", disabled=st.session_state.procesando)
         
-        
+        if enviado:
+            
+            st.session_state.procesando = True
+            
+            if not nombre.strip():
+                
+                st.session_state.procesando = False
+                st.warning("El campo de nombre es obligatorio. ⚠️")
+                return
