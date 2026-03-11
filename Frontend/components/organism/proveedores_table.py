@@ -1,6 +1,6 @@
 import streamlit as st
 from Backend.services import proveedores_service
-from Backend.models.usuarios import Proveedor
+from Backend.models.proveedores import Proveedor
 
 def proveedores_table():
     
@@ -70,10 +70,10 @@ def proveedores_table():
             
             with st.form("form_actualizar_proveedor"):
                 
-                nuevo_nombre = st.text_input("Nombre:", value=proveedor["nombre"])
-                nuevo_correo = st.text_input("Correo:", value=proveedor["correo"])
-                nuevo_persona = st.text_input("Persona_", value=proveedor["persona"])
-                nuevo_celular = st.text_input("Celular:", value=proveedor["celular"])
+                nuevo_nombre = st.text_input("Nombre:", value=proveedores["nombre"])
+                nuevo_correo = st.text_input("Correo:", value=proveedores["correo"])
+                nuevo_persona = st.text_input("Persona_", value=proveedores["persona"])
+                nuevo_celular = st.text_input("Celular:", value=proveedores["celular"])
                 
                 guardar = st.form_submit_button("Guardar Cambios")
                 cancelar = st.form_submit_button("Cancelar")
@@ -89,10 +89,10 @@ def proveedores_table():
                         
                         filas = proveedores_service.actualizar_proveedor(
                             
-                            proveedor["nombre"],
-                            proveedor["correo"],
-                            proveedor["persona"],
-                            proveedor["celular"],
+                            proveedores["nombre"],
+                            proveedores["correo"],
+                            proveedores["persona"],
+                            proveedores["celular"],
                             nuevo_nombre.strip(),
                             nuevo_correo,
                             nuevo_persona,
@@ -101,8 +101,8 @@ def proveedores_table():
                         
                         if filas > 0:
                             
-                            st.success(f"Proveedor '{proveedor['nombre']}' actualizado exitosamente. ✅")
-                            st.session_state-proveedor_en_edicion = None
+                            st.success(f"Proveedor '{proveedores['nombre']}' actualizado exitosamente. ✅")
+                            st.session_state.proveedor_en_edicion = None
                             st.rerun()
                             
                         else:
