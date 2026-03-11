@@ -1,5 +1,6 @@
 import streamlit as st
-
+from Backend.models.producto import Producto
+from Backend.services import producto_service
 
 def producto_nuevo():
     
