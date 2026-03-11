@@ -150,3 +150,20 @@ def proveedor_nuevo():
                 st.session_state.procesando = False
                 st.warning("El campo de nombre es obligatorio. ⚠️")
                 return
+            
+            
+            try:
+                
+                proveedor = Proveedor(nombre=nombre.strip(), correo=correo, persona=persona, celular=celular)
+                proveedores_service.agregar_proveedor(proveedor)
+                st.success(f"Proveedor '{nombre}' agregado exitosamente. ✅")
+                st.session_state.procesando = False
+                st.session_state.form_counter += 1
+                st.rerun()
+                
+                
+            except Exception as e:
+                
+                st.session_state.procesando = False
+                st.error(f"Error al agregar el usuario: {e}")
+                st.session_state.procesando = False
