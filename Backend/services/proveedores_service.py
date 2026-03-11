@@ -19,3 +19,15 @@ def agregar_proveedor(proveedor: Proveedor):
     
     conn.commit()
     conn.close()
+    
+    
+def eliminar_proveedor(nombre: str, correo: str, persona: str, celular: str):
+    
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE proveedores SET estado = 0 WHERE nombre = %s AND correo = %s AND persona = %s AND celular = %s AND estado = 1 LIMIT 1", (nombre, correo, persona, celular))
+    
+    conn.commit()
+    filas_afectadas = cursor.rowcount
+    conn.close()
+    return filas_afectadas
