@@ -25,24 +25,36 @@ def proveedores_table():
         with col5: st.markdown("Eliminar**")
         with col6: st.markdown("**Actualizar**")
         
-        for idx, (nombre, correo, persona, celular) in enumerate([3, 2, 2, 2, 2])
-        
-        with col1: st.write(nombre)
-        with col2: st.write(correo)
-        with col3: st.write(persona)
-        with col4: st.write(celular)
-        
-        
-        with col5:
+        for idx, (nombre, correo, persona, celular) in enumerate(proveedores):
             
-            if st.button("Eliminar🗑️", key=f"eliminar_{idx}"):
-                
-                filas = proveedores_service.eliminar_proveedor(nombre, correo, persona, celular)
-                
-                if filas > 0:
-                    
-                    st.success(f"Proveedores '{nombre}' eliminado exitosamente.✅")
-                    st.rerun()
-                    
-                    
+            col1, col2, col3, col4, col5, col6 = st.columns("3, 2, 2, 2, 2")
         
+            with col1: st.write(nombre)
+            with col2: st.write(correo)
+            with col3: st.write(persona)
+            with col4: st.write(celular)
+            
+            
+            with col5:
+                
+                if st.button("Eliminar🗑️", key=f"eliminar_{idx}"):
+                    
+                    filas = proveedores_service.eliminar_proveedor(nombre, correo, persona, celular)
+                    
+                    if filas > 0:
+                        
+                        st.success(f"Proveedores '{nombre}' eliminado exitosamente.✅")
+                        st.rerun()
+                        
+                        
+            with col6:
+                
+                if st.button("Actualizar✏️", key=f"actualizar_{idx}"):
+                    
+                    st.session_state.proveedor_en_edicion = {
+                        
+                        "nombre": nombre,
+                        "correo": correo,
+                        "personal": persona,
+                        "celular": celular,
+                    }

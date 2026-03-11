@@ -47,7 +47,7 @@ def users_table():
             with col5:
                 
                 if st.button("Actualizar✏️", key=f"actualizar_{idx}"):
-                    st.session_state.producto_en_edicion = {
+                    st.session_state.usuario_en_edicion = {
                         "nombre": nombre,
                         "correo": correo,
                         "contrasena": contrasena,
