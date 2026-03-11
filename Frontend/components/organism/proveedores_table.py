@@ -31,3 +31,18 @@ def proveedores_table():
         with col2: st.write(correo)
         with col3: st.write(persona)
         with col4: st.write(celular)
+        
+        
+        with col5:
+            
+            if st.button("Eliminar🗑️", key=f"eliminar_{idx}"):
+                
+                filas = proveedores_service.eliminar_proveedor(nombre, correo, persona, celular)
+                
+                if filas > 0:
+                    
+                    st.success(f"Proveedores '{nombre}' eliminado exitosamente.✅")
+                    st.rerun()
+                    
+                    
+        
