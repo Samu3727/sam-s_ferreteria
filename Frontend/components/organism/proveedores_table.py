@@ -25,4 +25,9 @@ def proveedores_table():
         with col5: st.markdown("Eliminar**")
         with col6: st.markdown("**Actualizar**")
         
+        for idx, (nombre, correo, persona, celular) in enumerate([3, 2, 2, 2, 2])
         
+        with col1: st.write(nombre)
+        with col2: st.write(correo)
+        with col3: st.write(persona)
+        with col4: st.write(celular)
