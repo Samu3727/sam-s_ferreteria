@@ -15,7 +15,7 @@ def proveedores_table():
     
     if proveedores:
         
-        col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2])
+        col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2, 2])
         
         
         with col1: st.markdown("**Nombre**")
@@ -27,7 +27,7 @@ def proveedores_table():
         
         for idx, (nombre, correo, persona, celular) in enumerate(proveedores):
             
-            col1, col2, col3, col4, col5, col6 = st.columns("3, 2, 2, 2, 2")
+            col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2, 2])
         
             with col1: st.write(nombre)
             with col2: st.write(correo)
@@ -55,7 +55,7 @@ def proveedores_table():
                         
                         "nombre": nombre,
                         "correo": correo,
-                        "personal": persona,
+                        "persona": persona,
                         "celular": celular,
                     }
                     
@@ -65,15 +65,15 @@ def proveedores_table():
             st.divider()
             st.subheader("Editar Proveedor")
             
-            usuario = st.session_state.proveedor_en_edicion
+            proveedor = st.session_state.proveedor_en_edicion
             
             
             with st.form("form_actualizar_proveedor"):
                 
-                nuevo_nombre = st.text_input("Nombre:", value=proveedores["nombre"])
-                nuevo_correo = st.text_input("Correo:", value=proveedores["correo"])
-                nuevo_persona = st.text_input("Persona_", value=proveedores["persona"])
-                nuevo_celular = st.text_input("Celular:", value=proveedores["celular"])
+                nuevo_nombre = st.text_input("Nombre:", value=proveedor["nombre"])
+                nuevo_correo = st.text_input("Correo:", value=proveedor["correo"])
+                nuevo_persona = st.text_input("Persona:", value=proveedor["persona"])
+                nuevo_celular = st.text_input("Celular:", value=proveedor["celular"])
                 
                 guardar = st.form_submit_button("Guardar Cambios")
                 cancelar = st.form_submit_button("Cancelar")
@@ -89,10 +89,10 @@ def proveedores_table():
                         
                         filas = proveedores_service.actualizar_proveedor(
                             
-                            proveedores["nombre"],
-                            proveedores["correo"],
-                            proveedores["persona"],
-                            proveedores["celular"],
+                            proveedor["nombre"],
+                            proveedor["correo"],
+                            proveedor["persona"],
+                            proveedor["celular"],
                             nuevo_nombre.strip(),
                             nuevo_correo,
                             nuevo_persona,
@@ -101,7 +101,7 @@ def proveedores_table():
                         
                         if filas > 0:
                             
-                            st.success(f"Proveedor '{proveedores['nombre']}' actualizado exitosamente. ✅")
+                            st.success(f"Proveedor '{proveedor['nombre']}' actualizado exitosamente. ✅")
                             st.session_state.proveedor_en_edicion = None
                             st.rerun()
                             
