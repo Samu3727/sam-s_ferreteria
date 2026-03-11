@@ -8,6 +8,7 @@ sys.path.insert(0, str(root_dir))
 import streamlit as st
 from components.templates.inventory_page import inventory_page
 from components.templates.users_page import users_page
+from components.templates.proveedores_page import proveedores_page
 
 st.set_page_config(page_title="Ferretería App", layout="wide")
 
@@ -18,8 +19,7 @@ if menu == "Inventario":
     inventory_page()
     
 elif menu == "Proveedores":
-    st.title("Proveedores")
-    st.write("Página de Proveedores en construcción...")
+    proveedores_page()
 
 elif menu == "Ventas":
     st.title("Registrar Venta")
