@@ -96,9 +96,6 @@ def proveedores_table():
                         filas = proveedores_service.actualizar_proveedor(
                             
                             proveedor["nombre"],
-                            proveedor["correo"],
-                            proveedor["persona"],
-                            proveedor["celular"],
                             nuevo_nombre.strip(),
                             nuevo_correo,
                             nuevo_persona,
