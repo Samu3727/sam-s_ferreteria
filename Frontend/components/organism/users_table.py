@@ -84,8 +84,6 @@ def users_table():
                         filas = usuarios_service.actualizar_usuario(
                             
                             usuario["nombre"],
-                            usuario["correo"],
-                            usuario["contrasena"],
                             nuevo_nombre.strip(),
                             nuevo_correo,
                             nuevo_contrasena,
