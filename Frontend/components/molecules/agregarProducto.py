@@ -33,8 +33,8 @@ def producto_nuevo():
                 producto_service.agregar_producto(producto)
                 st.success(f"✅ Producto '{nombre}' agregado correctamente.")
                 st.session_state.procesando = False
-                st.session_state.form_counter += 1  # Cambia el key del form
-                st.rerun()  # Recarga la página para mostrar el nuevo producto
+                st.session_state.form_counter += 1
+                st.rerun() 
             except Exception as e:
                 st.session_state.procesando = False
                 st.error(f"❌ Error al agregar producto: {e}")
