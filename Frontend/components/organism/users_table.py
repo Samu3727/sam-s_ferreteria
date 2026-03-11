@@ -100,7 +100,7 @@ def users_table():
                             
                         else:
                             
-                            st.warning("No se pudo actualizar el producto. ⚠️")
+                            st.warning("No se pudo actualizar el usuario. ⚠️")
                             
                             
                 if cancelar:

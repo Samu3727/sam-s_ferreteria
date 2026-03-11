@@ -77,3 +77,40 @@ def proveedores_table():
                 
                 guardar = st.form_submit_button("Guardar Cambios")
                 cancelar = st.form_submit_button("Cancelar")
+                
+                
+                if guardar:
+                    
+                    if not nuevo_nombre.strip():
+                        
+                        st.warning("El nombre no puede estar vacio. ⚠️")
+                        
+                    else:
+                        
+                        filas = proveedores_service.actualizar_proveedor(
+                            
+                            proveedor["nombre"],
+                            proveedor["correo"],
+                            proveedor["persona"],
+                            proveedor["celular"],
+                            nuevo_nombre.strip(),
+                            nuevo_correo,
+                            nuevo_persona,
+                            nuevo_celular,
+                        )
+                        
+                        if filas > 0:
+                            
+                            st.success(f"Proveedor '{proveedor['nombre']}' actualizado exitosamente. ✅")
+                            st.session_state-proveedor_en_edicion = None
+                            st.rerun()
+                            
+                        else:
+                            
+                            st.warning("No se puede actualizar el proveedor. ⚠️")
+                            
+                            
+                if cancelar:
+                    
+                    st.session_state.proveedor_en_edicion = None
+                    st.rerun()
