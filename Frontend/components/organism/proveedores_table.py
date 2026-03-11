@@ -58,3 +58,22 @@ def proveedores_table():
                         "personal": persona,
                         "celular": celular,
                     }
+                    
+        
+        if st.session_state.proveedor_en_edicion:
+            
+            st.divider()
+            st.subheader("Editar Proveedor")
+            
+            usuario = st.session_state.proveedor_en_edicion
+            
+            
+            with st.form("form_actualizar_proveedor"):
+                
+                nuevo_nombre = st.text_input("Nombre:", value=proveedor["nombre"])
+                nuevo_correo = st.text_input("Correo:", value=proveedor["correo"])
+                nuevo_persona = st.text_input("Persona_", value=proveedor["persona"])
+                nuevo_celular = st.text_input("Celular:", value=proveedor["celular"])
+                
+                guardar = st.form_submit_button("Guardar Cambios")
+                cancelar = st.form_submit_button("Cancelar")
