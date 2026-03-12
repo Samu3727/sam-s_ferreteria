@@ -11,6 +11,19 @@ def users_table():
         
     st.subheader("Tabla:")
     
+    if "mostrar_agregar" not in st.session_state:
+        
+        st.session_state.mostrar_agregar = False
+        
+    if st.session_state.mostrar_agregar:
+        usuario_nuevo()
+        return
+    
+    if st.button("Agregar Usuario"):
+        
+        st.session_state.mostrar_agregar = True
+        st.rerun()
+    
     usuarios = usuarios_service.listar_usuarios()
     
     if usuarios:
