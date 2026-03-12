@@ -19,6 +19,7 @@ def usuario_nuevo():
         nombre = st.text_input("Nombre:", placeholder="Nombre del Usuario")
         correo = st.text_input("Correo:", placeholder="pepito123@example.com")
         contrasena = st.text_input("Contraseña", placeholder="*********")
+        imagen = st.file_uploader("Imagen:")
         
         enviado = st.form_submit_button("Agregar Usuario", disabled=st.session_state.procesando)
         
@@ -34,11 +35,13 @@ def usuario_nuevo():
             
             try:
                 
+                imagen_bytes = imagen.read() if imagen else None
                 usuario = Usuario(nombre=nombre.strip(), correo=correo, contrasena=contrasena)
                 usuarios_service.agregar_usuario(usuario)
                 st.success(f"Usuario '{nombre}' agregado exitosamente. ✅")
                 st.session_state.procesando = False
                 st.session_state.form_counter += 1
+                st.session_state.mostrar_agregar = False
                 st.rerun()
                 
             except Exception as e:
@@ -46,3 +49,5 @@ def usuario_nuevo():
                 st.session_state.procesando = False
                 st.error(f"Error al agregar usuario: {e}")
                 st.session_state.procesando = False
+                
+            st.rerun()
