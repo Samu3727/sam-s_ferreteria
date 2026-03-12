@@ -31,11 +31,11 @@ def inventory_table():
         with col5: st.markdown("**Eliminar**")
         with col6: st.markdown("**Actualizar**")    
         
-        for idx, (nombre, precio, stock) in enumerate(productos):
+        for idx, (nombre, precio, stock, imagen) in enumerate(productos):
             
             col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2, 2])
             
-            with col1: st.write(imagen)
+            with col1: st.image(imagen) if imagen else st.write("Sin imagen")
             with col2: st.write(nombre)
             with col3: st.write(precio)
             with col4: st.write(stock)
@@ -82,11 +82,8 @@ def inventory_table():
                     step=1,
                 )
                 
-                nuevo_imagen = st.file_uploader(
-                    
-                    "Imagen:",
-                    value=str(producto["imagen"]),
-                )
+                st.write(f"Imagen actual: {producto['imagen']}")
+                nuevo_imagen = st.file_uploader("Nueva Imagen (opcional):")
 
                 guardar = st.form_submit_button("Guardar Cambios")
                 cancelar = st.form_submit_button("Cancelar")
