@@ -5,7 +5,7 @@ def listar_productos():
     
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT nombre, precio, stock FROM productos WHERE estado = 1")
+    cursor.execute("SELECT nombre, precio, stock, imagen FROM productos WHERE estado = 1")
     rows = cursor.fetchall()
     conn.close()
     return rows
@@ -14,23 +14,23 @@ def agregar_producto(producto: Producto):
     
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO productos (nombre, precio, stock) VALUES (%s,%s, %s)",
+    cursor.execute("INSERT INTO productos (nombre, precio, stock, imagen) VALUES (%s,%s, %s, %s)",
                 (producto.nombre, producto.precio, producto.stock))
     
     conn.commit()
     conn.close()
     
-def eliminar_producto(nombre: str, precio: float, stock: int):
+def eliminar_producto(nombre: str, precio: float, stock: int, imagen: str):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute(
         """
         UPDATE productos
         SET estado = 0
-        WHERE nombre = %s AND precio = %s AND stock = %s AND estado = 1
+        WHERE nombre = %s AND precio = %s AND stock = %s AND imagen = %s AND estado = 1
         LIMIT 1
         """,
-        (nombre, precio, stock)
+        (nombre, precio, stock, imagen)
     )
     conn.commit()
     filas_afectadas = cursor.rowcount
@@ -39,35 +39,31 @@ def eliminar_producto(nombre: str, precio: float, stock: int):
 
 
 def actualizar_producto(nombre: str, *args):
-    """
-    Compatible con dos firmas:
-    - actualizar_producto(nombre, nuevo_nombre, nuevo_precio, nuevo_stock)
-    - actualizar_producto(nombre, precio, stock, nuevo_nombre, nuevo_precio, nuevo_stock)
-    """
+
     conn = get_connection()
     cursor = conn.cursor()
 
     if len(args) == 3:
-        nuevo_nombre, nuevo_precio, nuevo_stock = args
+        nuevo_nombre, nuevo_precio, nuevo_stock, nuevo_imagen = args
         cursor.execute(
             """
             UPDATE productos
-            SET nombre = %s, precio = %s, stock = %s
+            SET nombre = %s, precio = %s, stock = %s, imagen = %s
             WHERE nombre = %s AND estado = 1
             LIMIT 1
             """,
-            (nuevo_nombre, nuevo_precio, nuevo_stock, nombre),
+            (nuevo_nombre, nuevo_precio, nuevo_stock,nuevo_imagen, nombre),
         )
     elif len(args) == 5:
-        precio, stock, nuevo_nombre, nuevo_precio, nuevo_stock = args
+        precio, stock, imagen, nuevo_nombre, nuevo_precio, nuevo_stock, nuevo_imagen = args
         cursor.execute(
             """
             UPDATE productos
             SET nombre = %s, precio = %s, stock = %s
-            WHERE nombre = %s AND precio = %s AND stock = %s AND estado = 1
+            WHERE nombre = %s AND precio = %s AND stock = %s AND imagen = %s AND estado = 1
             LIMIT 1
             """,
-            (nuevo_nombre, nuevo_precio, nuevo_stock, nombre, precio, stock),
+            (nuevo_nombre, nuevo_precio, nuevo_stock, nuevo_imagen, nombre, precio, stock, imagen),
         )
     else:
         conn.close()
