@@ -100,12 +100,14 @@ def users_table():
                         
                     else:
                         
+                        imagen_bytes = nuevo_imagen.read() if nuevo_imagen else usuario["imagen"]
                         filas = usuarios_service.actualizar_usuario(
                             
                             usuario["nombre"],
                             nuevo_nombre.strip(),
                             nuevo_correo,
                             nuevo_contrasena,
+                            imagen_bytes
                         )
                         
                         
