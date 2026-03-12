@@ -17,6 +17,7 @@ def producto_nuevo():
         nombre = st.text_input("Nombre:", placeholder="Nombre Producto")
         precio = st.number_input("Precio:")
         stock = st.number_input("Stock:")
+        imagen = st.file_uploader("Imagen:")
         
         enviado = st.form_submit_button("Agregar Producto", disabled=st.session_state.procesando)
         
@@ -29,7 +30,7 @@ def producto_nuevo():
                 return
             
             try:
-                producto = Producto(nombre=nombre.strip(), precio=precio, stock=stock)
+                producto = Producto(nombre=nombre.strip(), precio=precio, stock=stock, imagen=imagen)
                 producto_service.agregar_producto(producto)
                 st.success(f"✅ Producto '{nombre}' agregado correctamente.")
                 st.session_state.procesando = False
