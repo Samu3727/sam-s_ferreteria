@@ -22,40 +22,43 @@ def inventory_table():
     productos = producto_service.listar_productos()
     
     if productos:
-        col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 2])
+        col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2, 2])
         
-        with col1: st.markdown("**Nombre**")
-        with col2: st.markdown("**Precio**")
-        with col3: st.markdown("**Stock**")
-        with col4: st.markdown("**Eliminar**")
-        with col5: st.markdown("**Actualizar**")    
+        with col1: st.markdown("**Imagen**")
+        with col2: st.markdown("**Nombre**")
+        with col3: st.markdown("**Precio**")
+        with col4: st.markdown("**Stock**")
+        with col5: st.markdown("**Eliminar**")
+        with col6: st.markdown("**Actualizar**")    
         
         for idx, (nombre, precio, stock) in enumerate(productos):
             
-            col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 2])
+            col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2, 2])
             
-            with col1: st.write(nombre)
-            with col2: st.write(precio)
-            with col3: st.write(stock)
+            with col1: st.write(imagen)
+            with col2: st.write(nombre)
+            with col3: st.write(precio)
+            with col4: st.write(stock)
             
-            with col4:
+            with col5:
                 
                 if st.button("Eliminar🗑️", key=f"eliminar_{idx}"):
                     
-                    filas = producto_service.eliminar_producto(nombre, float(precio), int(stock))
+                    filas = producto_service.eliminar_producto(nombre, float(precio), int(stock), imagen)
                     
                     if filas > 0:
                         
                         st.success(f"Producto '{nombre}' eliminado exitosamente.✅")
                         st.rerun()
                         
-            with col5:
+            with col6:
                 
                 if st.button("Actualizar✏️", key=f"actualizar_{idx}"):
                     st.session_state.producto_en_edicion = {
                         "nombre": nombre,
                         "precio": float(precio),
                         "stock": int(stock),
+                        "imagen": imagen
                     }
 
         if st.session_state.producto_en_edicion:
@@ -78,6 +81,12 @@ def inventory_table():
                     min_value=0,
                     step=1,
                 )
+                
+                nuevo_imagen = st.file_uploader(
+                    
+                    "Imagen:",
+                    value=str(producto["imagen"]),
+                )
 
                 guardar = st.form_submit_button("Guardar Cambios")
                 cancelar = st.form_submit_button("Cancelar")
@@ -90,9 +99,11 @@ def inventory_table():
                             producto["nombre"],
                             float(producto["precio"]),
                             int(producto["stock"]),
+                            producto["imagen"],
                             nuevo_nombre.strip(),
                             float(nuevo_precio),
                             int(nuevo_stock),
+                            nuevo_imagen
                         )
 
                         if filas > 0:
