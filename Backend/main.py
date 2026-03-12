@@ -10,10 +10,6 @@ def test_backend():
     print("Conexión exitosa a la base de datos", conn.is_connected)
     conn.close()
     
-    producto = Producto("Taladro Percutor", 139000, 87)
-    agregar_producto(producto)
-    print("Producto agregado correctamente. ")
-    
     productos = listar_productos()
     print("Stock Actual en la ferreteria: ")
     
