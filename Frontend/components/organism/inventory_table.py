@@ -12,12 +12,13 @@ def inventory_table():
         
         st.session_state.mostrar_agregar = False
     
-    if st.button("Agregar Producto"):
-        
-        st.session_state.mostrar_agregar = True
-        
     if st.session_state.mostrar_agregar:
         producto_nuevo()
+        return
+
+    if st.button("Agregar Producto"):
+        st.session_state.mostrar_agregar = True
+        st.rerun()
     
     productos = producto_service.listar_productos()
     

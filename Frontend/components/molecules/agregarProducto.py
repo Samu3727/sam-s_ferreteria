@@ -36,8 +36,11 @@ def producto_nuevo():
                 st.success(f"✅ Producto '{nombre}' agregado correctamente.")
                 st.session_state.procesando = False
                 st.session_state.form_counter += 1
+                st.session_state.mostrar_agregar = False
                 st.rerun() 
             except Exception as e:
                 st.session_state.procesando = False
                 st.error(f"❌ Error al agregar producto: {e}")
                 st.session_state.procesando = False
+                
+            st.rerun()
