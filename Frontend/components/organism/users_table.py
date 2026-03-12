@@ -41,7 +41,7 @@ def users_table():
             
             col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2, 2])
             
-            with col1: st.write(imagen)
+            with col1: st.write(imagen) if imagen else st.write("Sin imagen")
             with col2: st.write(nombre)
             with col3: st.write(correo)
             with col4: st.write(contrasena)
@@ -51,7 +51,7 @@ def users_table():
                 
                 if st.button("Eliminar🗑️", key=f"eliminar_{idx}"):
                     
-                    filas = usuarios_service.eliminar_usuario(nombre, correo, contrasena)
+                    filas = usuarios_service.eliminar_usuario(nombre, correo, contrasena, imagen)
                     
                     if filas > 0:
                         
@@ -66,6 +66,7 @@ def users_table():
                         "nombre": nombre,
                         "correo": correo,
                         "contrasena": contrasena,
+                        "imagen": imagen
                     }
                     
                     
@@ -83,6 +84,9 @@ def users_table():
                 nuevo_nombre = st.text_input("Nombre:", value=usuario["nombre"])
                 nuevo_correo = st.text_input("Correo:", value=usuario["correo"])
                 nuevo_contrasena = st.text_input("Contraseña:", value=usuario["contrasena"])
+                
+                st.write(f"Imagen actual: {usuario['imagen']}")
+                nuevo_imagen = st.file_uploader("Nueva Imagen (Opcional):")
                 
                 guardar = st.form_submit_button("Guardar Cambios")
                 cancelar = st.form_submit_button("Cancelar")
