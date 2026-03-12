@@ -30,7 +30,8 @@ def producto_nuevo():
                 return
             
             try:
-                producto = Producto(nombre=nombre.strip(), precio=precio, stock=stock, imagen=imagen)
+                imagen_bytes = imagen.read() if imagen else None
+                producto = Producto(nombre=nombre.strip(), precio=precio, stock=stock, imagen=imagen_bytes)
                 producto_service.agregar_producto(producto)
                 st.success(f"✅ Producto '{nombre}' agregado correctamente.")
                 st.session_state.procesando = False

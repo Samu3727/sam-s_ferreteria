@@ -92,6 +92,7 @@ def inventory_table():
                     if not nuevo_nombre.strip():
                         st.warning("El nombre no puede estar vacio. ⚠️")
                     else:
+                        imagen_bytes = nuevo_imagen.read() if nuevo_imagen else producto["imagen"]
                         filas = producto_service.actualizar_producto(
                             producto["nombre"],
                             float(producto["precio"]),
@@ -100,7 +101,7 @@ def inventory_table():
                             nuevo_nombre.strip(),
                             float(nuevo_precio),
                             int(nuevo_stock),
-                            nuevo_imagen
+                            imagen_bytes
                         )
 
                         if filas > 0:
