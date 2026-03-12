@@ -1,5 +1,6 @@
 import streamlit as st
 from Backend.services import usuarios_service
+from components.molecules.agregarUsuario import usuario_nuevo
 
 def users_table():
     
