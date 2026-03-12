@@ -15,7 +15,7 @@ def agregar_usuario(usuario: Usuario):
     
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO usuarios (nombre, correo, contrasena, imagen) VALUES (%s, %s, %s)",
+    cursor.execute("INSERT INTO usuarios (nombre, correo, contrasena, imagen) VALUES (%s, %s, %s, %s)",
                     (usuario.nombre, usuario.correo, usuario.contrasena, usuario.imagen))
     
     conn.commit()
