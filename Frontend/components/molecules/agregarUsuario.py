@@ -1,5 +1,6 @@
 import streamlit as st
-
+from Backend.models.usuarios import Usuario
+from Backend.services import usuarios_service
 
 def usuario_nuevo():
     
