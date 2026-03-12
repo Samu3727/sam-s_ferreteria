@@ -28,24 +28,26 @@ def users_table():
     
     if usuarios:
         
-        col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 2])
+        col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2, 2])
         
-        with col1: st.markdown("**Nombre**")
-        with col2: st.markdown("**Correo**")
-        with col3: st.markdown("**Contraseña**")
-        with col4: st.markdown("**Eliminar**")
-        with col5: st.markdown("**Actualizar**")
+        with col1: st.markdown("**Imagen**")
+        with col2: st.markdown("**Nombre**")
+        with col3: st.markdown("**Correo**")
+        with col4: st.markdown("**Contraseña**")
+        with col5: st.markdown("**Eliminar**")
+        with col6: st.markdown("**Actualizar**")
         
-        for idx, (nombre, correo, contrasena) in enumerate(usuarios):
+        for idx, (nombre, correo, contrasena, imagen) in enumerate(usuarios):
             
-            col1, col2, col3, col4, col5 = st.columns([3, 2, 2, 2, 2])
+            col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2, 2])
             
-            with col1: st.write(nombre)
-            with col2: st.write(correo)
-            with col3: st.write(contrasena)
+            with col1: st.write(imagen)
+            with col2: st.write(nombre)
+            with col3: st.write(correo)
+            with col4: st.write(contrasena)
             
             
-            with col4:
+            with col5:
                 
                 if st.button("Eliminar🗑️", key=f"eliminar_{idx}"):
                     
@@ -57,7 +59,7 @@ def users_table():
                         st.rerun()
                         
                         
-            with col5:
+            with col6:
                 
                 if st.button("Actualizar✏️", key=f"actualizar_{idx}"):
                     st.session_state.usuario_en_edicion = {
