@@ -7,7 +7,7 @@ import io
 
 def _mostrar_imagen_segura(imagen):
     if imagen is None:
-        st.write("Sin imagen")
+        st.write("Sin Imagen")
         return
 
     if isinstance(imagen, (bytes, bytearray, memoryview)):

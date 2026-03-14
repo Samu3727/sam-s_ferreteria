@@ -2,6 +2,13 @@ import streamlit as st
 from Backend.services import usuarios_service
 from components.molecules.agregarUsuario import usuario_nuevo
 
+def __mostrar:imagen_segur(imagen):
+    
+    if imagen is None:
+        
+        st.write("Sin Imagen")
+        return
+    
 def users_table():
     
     if "usuario_en_edicion" not in st.session_state:
