@@ -1,13 +1,34 @@
 import streamlit as st
 from Backend.services import usuarios_service
 from components.molecules.agregarUsuario import usuario_nuevo
+from PIL import Image, UnidentifiedImageError
+import io
 
-def __mostrar:imagen_segur(imagen):
+def __mostrar_imagen_segur(imagen):
     
     if imagen is None:
         
         st.write("Sin Imagen")
         return
+    
+    if isinstance(imagen, (bytes, bytearray, memoryview)):
+     
+        datos = bytes(imagen)
+        
+        if not datos:
+            
+            st.write("Sin Imagen")
+            return
+        
+        try:
+            
+            Image.open(io.BytesIO(datos)).verify()
+            st.imagen(datos)
+            
+        except (UnidentifiedImageError, OSError, ValueError, TypeError):
+            
+            st.write("Sin IMagen")
+            return
     
 def users_table():
     
