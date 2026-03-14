@@ -12,7 +12,7 @@ def __mostrar_imagen_segur(imagen):
         return
     
     if isinstance(imagen, (bytes, bytearray, memoryview)):
-     
+    
         datos = bytes(imagen)
         
         if not datos:
