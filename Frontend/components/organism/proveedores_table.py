@@ -4,6 +4,22 @@ from Backend.models.proveedores import Proveedor
 from PIL import Image, UnidentifiedImageError
 import io
 
+def _mostrar_imagen_segura(imagen):
+
+    if imagen is None:
+
+        st.write("Sin Imagen")
+        return
+
+    if isinstance(imagen, (bytes, bytearray, memoryview)):
+
+        datos = bytes(imagen)
+
+        if not datos:
+
+            st.write("Sin Imagen")
+            return
+
 def proveedores_table():
     
     if "proveedor_en_edicion" not in st.session_state:
