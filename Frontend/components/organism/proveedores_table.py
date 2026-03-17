@@ -20,6 +20,16 @@ def _mostrar_imagen_segura(imagen):
             st.write("Sin Imagen")
             return
 
+        try:
+
+            Image.open(io.Bytes(datos)).verify()
+
+            st.imagen(datos)
+
+        except(UnicodeDecodeError, OSError, ValueError, TypeError):
+
+            st.write("Simn Imagen")
+
 def proveedores_table():
     
     if "proveedor_en_edicion" not in st.session_state:
