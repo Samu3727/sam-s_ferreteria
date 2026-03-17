@@ -13,7 +13,7 @@ def test_backend():
     productos = listar_productos()
     print("Stock Actual en la ferreteria: ")
     
-    usuario = Usuario("Samuel Esquivel", "samuelcuidaesquivel@gmail.com", "SAOanime37")
+    usuario = Usuario("Samuel Esquivel", "samuelcuidaesquivel@gmail.com", "SAOanime37", "")
     agregar_usuario(usuario)
     print("Usuario agregado exitosamente.")
     
