@@ -36,7 +36,14 @@ def inventory_table():
             
             col1, col2, col3, col4, col5, col6 = st.columns([3, 2, 2, 2, 2, 2])
             
-            with col1: st.image(imagen) if imagen else st.write("Sin imagen")
+            with col1:
+                try:
+                    if imagen:
+                        st.image(imagen)
+                    else:
+                        st.write("Sin imagen")
+                except Exception:
+                    st.write("Imagen inválida")
             with col2: st.write(nombre)
             with col3: st.write(precio)
             with col4: st.write(stock)
