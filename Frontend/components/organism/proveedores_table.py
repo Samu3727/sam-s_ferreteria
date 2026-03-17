@@ -1,6 +1,8 @@
 import streamlit as st
 from Backend.services import proveedores_service
 from Backend.models.proveedores import Proveedor
+from PIL import Image, UnidentifiedImageError
+import io
 
 def proveedores_table():
     
